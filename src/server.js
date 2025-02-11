@@ -1,12 +1,6 @@
-const express = require('express');
+const http = require('http');
+const backend = require('./backend');
 
-const app = express();
-const PORT = 8000;
-
-app.listen(PORT, (error) =>{
-    if(!error)
-        console.log("Running on: https:\\localhost:"+ PORT)
-    else 
-        console.log("Error occurred, server can't start", error);
-    }
-);
+http.createServer(backend).listen(8080, () => {
+    console.log('Server runs on: http://localhost:8080...');
+});
