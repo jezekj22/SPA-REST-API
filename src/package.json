@@ -1,11 +1,12 @@
 {
   "name": "src",
   "version": "1.0.0",
-  "description": "Mini wiki",
+  "description": "Funny Quotes",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
   "author": "Martin Forbelský, Jakub Ježek",
   "license": "ISC",
@@ -15,5 +16,6 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.9"
-  }
+  },
+  "keywords": []
 }
