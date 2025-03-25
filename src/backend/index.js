@@ -3,7 +3,10 @@ const fs = require('fs');
 const cors = require('cors');
 const path = require('path');
 
+
 const app = express();
+app.use(express.json());
+
 app.use(cors());
 app.use(express.static(path.join(__dirname, '../frontend'))); // Přidá statické soubory
 
@@ -31,7 +34,11 @@ app.get('/random-quote', (req, res) => {
 
 
 
-
+app.post('/api/login',(req,res) =>{
+    const { name, password } = req.body;
+    console.log(name + password);
+    console.log("skibidi");
+});
 
 
 

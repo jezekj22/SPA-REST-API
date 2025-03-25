@@ -8,3 +8,18 @@ function ShowSection(id) {
     activeSection.classList.remove('d-none'); // Zobrazíme požadovanou sekci
     activeSection.classList.add('d-flex'); // Přidáme flexbox zarovnání pro střed
 }
+
+
+
+
+document.getElementById('prihlaseni').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('loginname').value;
+    const password = document.getElementById('loginPassword').value;
+    fetch('/api/login', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, password: password })
+    })
+});
