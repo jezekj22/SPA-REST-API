@@ -35,10 +35,15 @@ app.get('/random-quote', (req, res) => {
 
 
 app.post('/api/login',(req,res) =>{
-    const { name, password } = req.body;
-    console.log(name + password);
-    console.log("skibidi");
+    const { name, passwd } = req.body;
+    console.log(name + " " + passwd);
 });
+
+app.post('/api/register',(req,res) =>{
+    const { name, passwd, checkpasswd } = req.body;
+    console.log(name + " " + passwd + " " + checkpasswd);
+});
+
 
 
 

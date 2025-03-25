@@ -15,11 +15,24 @@ function ShowSection(id) {
 document.getElementById('prihlaseni').addEventListener('submit', function(e) {
     e.preventDefault();
     const name = document.getElementById('loginname').value;
-    const password = document.getElementById('loginPassword').value;
+    const passwd = document.getElementById('loginPassword').value;
     fetch('/api/login', {
         method: 'POST',
         credentials: 'same-origin',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name, password: password })
+        body: JSON.stringify({ name: name, passwd: passwd })
+    })
+});
+
+document.getElementById('registrace').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const name = document.getElementById('registerName').value;
+    const passwd = document.getElementById('registerPassword').value;
+    const checkpasswd = document.getElementById('registercheckPassword').value;
+    fetch('/api/register', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, passwd: passwd, checkpasswd: checkpasswd })
     })
 });
