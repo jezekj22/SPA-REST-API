@@ -1,5 +1,10 @@
-document.getElementById('generate').addEventListener('click', async () => {
-    const response = await fetch('http://localhost:8080/random-quote');
-    const data = await response.json();
-    document.getElementById('quote').textContent = data.quote;
-});
+function ShowSection(id) {
+    document.querySelectorAll('.section').forEach(el => {
+        el.classList.remove('d-flex'); // Odebereme flexbox, aby se neprojevoval
+        el.classList.add('d-none');    // Skryjeme všechny sekce
+    });
+
+    let activeSection = document.getElementById(id);
+    activeSection.classList.remove('d-none'); // Zobrazíme požadovanou sekci
+    activeSection.classList.add('d-flex'); // Přidáme flexbox zarovnání pro střed
+}

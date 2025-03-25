@@ -8,11 +8,75 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container text-center mt-5">
-        <h1 class="display-4">'Vtipný' generátor citátů</h1>
-        <p id="quote" class="lead">Klikni na tlačítko a pobav se!</p>
-        <button id="generate" class="btn btn-warning btn-lg">Generovat citát</button>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">'Vtipný' generátor citátů</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="ShowSection('generator')">Domů</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="ShowSection('login')">Přihlášení</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="ShowSection('register')">Registrace</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+<!-- Generátor citátů -->
+<div id="generator" class="section d-flex flex-column justify-content-center align-items-center vh-100">
+    <h1 class="display-4">'Vtipný' generátor citátů</h1>
+    <p id="quote" class="lead">Klikni na tlačítko a pobav se!</p>
+    <button id="generate" class="btn btn-warning btn-lg">Generovat citát</button>
+</div>
+
+<!-- Přihlášení -->
+<div id="login" class="section d-flex flex-column justify-content-center align-items-center vh-100 d-none">
+    <div class="card p-4 w-50">
+        <h2 class="text-center">Přihlášení</h2>
+        <form>
+            <div class="form-group">
+                <label for="loginEmail">Email</label>
+                <input type="email" class="form-control" id="loginEmail" placeholder="Zadejte email">
+            </div>
+            <div class="form-group">
+                <label for="loginPassword">Heslo</label>
+                <input type="password" class="form-control" id="loginPassword" placeholder="Zadejte heslo">
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Přihlásit se</button>
+        </form>
     </div>
+</div>
+
+<!-- Registrace -->
+<div id="register" class="section d-flex flex-column justify-content-center align-items-center vh-100 d-none">
+    <div class="card p-4 w-50">
+        <h2 class="text-center">Registrace</h2>
+        <form>
+            <div class="form-group">
+                <label for="registerName">Jméno</label>
+                <input type="text" class="form-control" id="registerName" placeholder="Zadejte jméno">
+            </div>
+            <div class="form-group">
+                <label for="registerEmail">Email</label>
+                <input type="passowrd" class="form-control" id="password" placeholder="Zadejte heslo">
+            </div>
+            <div class="form-group">
+                <label for="registerPassword">Heslo</label>
+                <input type="password" class="form-control" id="registerPassword" placeholder="Zadejte heslo">
+            </div>
+            <button type="submit" class="btn btn-success btn-block">Registrovat se</button>
+        </form>
+    </div>
+</div>
+
+
+
     <script src="script.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

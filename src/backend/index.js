@@ -29,9 +29,17 @@ app.get('/random-quote', (req, res) => {
     res.json({ quote: getRandomQuote() });
 });
 
-// Oprava: Přidání obsluhy kořenové cesty
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, '../frontend/index.html'));
-});
+
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = app;
