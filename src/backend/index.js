@@ -3,6 +3,7 @@ const fs = require('fs');
 const cors = require('cors');
 const path = require('path');
 const JSONdb = require('simple-json-db');
+const bcrypt = require('bcryptjs');
 
 const app = express();
 app.use(express.json());
@@ -72,17 +73,17 @@ class User {
         return  new User(userData.id, userData.username, userData.password); 
     }
 
-    create(user) {
+    async create(user) {
         const users = this.db.get('users') || [];
         if(this.FindUserbyName(user.username)){
             throw new Error("User already exists");
  
         }
-               
+        const hashedPassword = await bcrypt.hash(user.password, 15);
         users.push({
             id: this.getNextId(),
             username: user.username,
-            password: user.password,
+            password: hashedPassword,
             displayName: user.displayName,
             generatedQuotes: user.generatedQuotes,
             favoritedQuotes: user.favoritedQuotes
@@ -99,12 +100,25 @@ class User {
 
 
 
-app.post('/api/login',(req,res) =>{
+app.post('/api/login', async (req, res) => {
     const { name, passwd } = req.body;
-    console.log(name + " " + passwd);
+
+    const userDb = new User();
+    const user = userDb.FindUserbyName(name);
+
+    if (!user) {
+        return res.status(400).json({ error: "Invalid username or password" });
+    }
+
+    const isMatch = await bcrypt.compare(passwd, user.password);
+    if (!isMatch) {
+        return res.status(400).json({ error: "Invalid username or password" });
+    }
+
+    res.json({ message: "Login successful", user: { id: user.id, username: user.username } });
 });
 
-app.post('/api/register', (req, res) => {
+app.post('/api/register', async (req, res) => {
     const { name, passwd, checkpasswd } = req.body;
 
     if (!name || !passwd || !checkpasswd) {
