@@ -79,7 +79,7 @@ class User {
             throw new Error("User already exists");
  
         }
-        const hashedPassword = await bcrypt.hash(user.password, 15);
+        const hashedPassword = await bcrypt.hash(user.password, 10);
         users.push({
             id: this.getNextId(),
             username: user.username,
@@ -115,7 +115,8 @@ app.post('/api/login', async (req, res) => {
         return res.status(400).json({ error: "Invalid username or password" });
     }
 
-    res.json({ message: "Login successful", user: { id: user.id, username: user.username } });
+    req.session.uzivatel = { id: uzivatel.id, jmeno: uzivatel.jmeno };
+    return res.json({ zprava: "Logged in" });
 });
 
 app.post('/api/register', async (req, res) => {
@@ -149,7 +150,10 @@ app.post('/api/register', async (req, res) => {
 });
 
 
-
+app.get('/api/logout', function(req, res) {
+    req.session.destroy();
+    return res.json({ zprava: "Logged out" });
+});
 
 
 
