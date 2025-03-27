@@ -15,15 +15,18 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
+            <ul class="navbar-nav ml-auto d-flex align-items-center">
                 <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="ShowSection('generator')">Domů</a>
+                    <a id="navProfile" class="nav-link d-none" href="#" >Profil</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="ShowSection('login')">Přihlášení</a>
+                    <a id="navHome" class="nav-link d-inline" href="#" >Domů</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#" onclick="ShowSection('register')">Registrace</a>
+                    <a id="navLogin" class="nav-link d-inline" href="#" >Přihlášení</a>
+                </li>
+                <li class="nav-item">
+                    <a id="navRegister" class="nav-link d-inline" href="#" >Registrace</a>
                 </li>
             </ul>
         </div>
@@ -75,7 +78,27 @@
     </div>
 </div>
 
-
+<!-- Profil -->
+<div id="profile" class="section d-flex flex-column justify-content-center align-items-center vh-100 d-none">
+    <div class="card p-4 w-50">
+        <h2 class="text-center">Profil uživatele</h2>
+        <div class="form-group">
+            <label for="profileName">Jméno:</label>
+            <p id="profileName" class="form-control">Franta Novák</p>
+        </div>
+        
+        <h3 class="text-center mt-4">Oblíbené citáty</h3>
+        <div id="favoriteQuotes" class="d-flex flex-wrap justify-content-center">
+            <div class="card m-2 p-3" style="width: 18rem;">
+                <p class="card-text">"Život je jako bonboniéra, nikdy nevíš, co ochutnáš."</p>
+            </div>
+            <div class="card m-2 p-3" style="width: 18rem;">
+                <p class="card-text">"Smích je nejlepší lék."</p>
+            </div>
+        </div>
+        <button class="btn btn-danger btn-block mt-3" onclick="logout()">Odhlásit se</button>
+    </div>
+</div>
 
     <script src="script.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

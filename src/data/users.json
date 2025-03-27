@@ -1,0 +1,10 @@
+{
+    "next_id": 2,
+    "users": [
+        {
+            "id": 1,
+            "username": "r",
+            "password": "$2b$10$/jrpzCNnwQrc0dFuJlZ68.PbkMtUAn/taM2MTIDzK/0Zc/kt4FV2u"
+        }
+    ]
+}

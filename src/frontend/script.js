@@ -9,6 +9,20 @@ function ShowSection(id) {
     activeSection.classList.add('d-flex'); // Přidáme flexbox zarovnání pro střed
 }
 
+function toggleAuthLinks() {
+    const elements = {
+        profile: document.getElementById('navProfile'),
+        login: document.getElementById('navLogin'),
+        register: document.getElementById('navRegister')
+    };
+
+    const showProfile = elements.profile.classList.toggle('d-none');
+    elements.login.classList.toggle('d-none', showProfile);
+    elements.register.classList.toggle('d-none', showProfile);
+}
+
+
+
 
 
 
@@ -22,6 +36,11 @@ document.getElementById('prihlaseni').addEventListener('submit', function(e) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: name, passwd: passwd })
     })
+    .then(response => response.json())
+    .then(data => {
+            toggleAuthLinks();
+            ShowSection('profile');
+    });
 });
 
 document.getElementById('registrace').addEventListener('submit', function(e) {
@@ -35,4 +54,29 @@ document.getElementById('registrace').addEventListener('submit', function(e) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: name, passwd: passwd, checkpasswd: checkpasswd })
     })
+});
+
+
+
+
+
+
+
+// reakce na kliknutí na elementy
+
+document.getElementById('navProfile').addEventListener('click', function() {
+    ShowSection('profile');
+    
+});
+
+document.getElementById('navHome').addEventListener('click', function() {
+    ShowSection('generator');
+});
+
+document.getElementById('navLogin').addEventListener('click', function() {
+    ShowSection('login');
+});
+
+document.getElementById('navRegister').addEventListener('click', function() {
+    ShowSection('register');
 });
