@@ -22,7 +22,22 @@ function toggleAuthLinks() {
 }
 
 
-
+document.getElementById('generate').addEventListener('click', function(e) {
+    e.preventDefault();
+    fetch('/random-quote', {
+        method: 'GET',  
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('quoteText').innerText = data.quote; 
+        document.getElementById('response').style.display = 'block';
+    })
+    .catch(error => {
+        console.error('Chyba při načítání citátu:', error);
+    });
+});
 
 
 

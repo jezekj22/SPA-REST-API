@@ -30,6 +30,7 @@ function getRandomQuote() {
 }
 
 app.get('/random-quote', (req, res) => {
+    console.log('GET /random-quote');
     res.json({ quote: getRandomQuote() });
 });
 
