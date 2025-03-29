@@ -52,6 +52,13 @@ class Quote {
 
         return { success: true, message: "Quote added to favorites" };
     }
+
+    getFavoriteQuotes(username) {
+        const quotes = this.db.get('quotes') || [];
+        return quotes
+            .filter(q => q.username === username) 
+            .map(q => q.quote); 
+    }
     
 }
 

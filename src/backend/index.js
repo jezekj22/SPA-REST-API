@@ -141,7 +141,23 @@ app.post('/api/save-quote', function(req, res) {
 
 
 
+app.get('/api/profile', function(req, res) {
+    try {
+        console.log("Profil");
+        if (req.session.user) {
+            const quote = new Quote(req.session.user, "");
+            let favoriteQuotes = quote.getFavoriteQuotes(req.session.user);
+            let username = req.session.user;
+            return res.status(200).json({ quotes: favoriteQuotes, username: username });
+        } else {
+            return res.status(401).json({ error: "Unauthorized" });
+        }
 
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "Error occured during saving" });
+    }
+});
 
 
 

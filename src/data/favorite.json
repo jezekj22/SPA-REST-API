@@ -1,0 +1,50 @@
+{
+    "next_id": 10,
+    "quotes": [
+        {
+            "id": 1,
+            "username": "s",
+            "quote": "Dospělost je -"
+        },
+        {
+            "id": 2,
+            "username": "s",
+            "quote": "Router na klacku - a lednička je mé muzeum."
+        },
+        {
+            "id": 3,
+            "username": "s",
+            "quote": "Peníze nejsou všechno - smažme e-maily, které se nám nelíbí."
+        },
+        {
+            "id": 4,
+            "username": "s",
+            "quote": "Nemusíš být perfektní - ať se zasměješ."
+        },
+        {
+            "id": 5,
+            "username": "s",
+            "quote": "Někdy je nejlepším rozhodnutím - a lednička je mé muzeum."
+        },
+        {
+            "id": 6,
+            "username": "s",
+            "quote": "Nemusíš být perfektní - je vrátit se do postele."
+        },
+        {
+            "id": 7,
+            "username": "s",
+            "quote": "Nejlepší léčba stresu? Návštěva cukrárny - když si uvědomíš, že nemůžeš sníst pizzu každý den."
+        },
+        {
+            "id": 8,
+            "username": "s",
+            "quote": "Život je jako hra - zkus to rozebrat a složit zpátky."
+        },
+        {
+            "id": 9,
+            "username": "s",
+            "quote": "No nazdar Pztka -"
+        }
+    ]
+}

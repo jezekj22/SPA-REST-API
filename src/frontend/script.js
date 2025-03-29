@@ -79,6 +79,7 @@ document.getElementById('prihlaseni').addEventListener('submit', function(e) {
             document.getElementById('loginMessage').textContent = data.response;
             document.getElementById('saveQuote').style.display = 'block';
             updateNav(true);
+            loadProfile(); // Načteme profil uživatele
             ShowSection('profile');
         } else {
             document.getElementById('loginMessage').textContent = data.error;
@@ -119,7 +120,31 @@ document.getElementById('logout').addEventListener('click', function(e) {
     })
 });
 
-
+function loadProfile(){
+    fetch('/api/profile', {
+        method: 'GET',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.username) {
+            document.getElementById('profileName').textContent = data.username;
+            console.log("Profil");
+            console.log(data.quotes);
+            if (data.quotes.length > 0) {
+                document.getElementById('favoriteQuotes').innerHTML = data.quotes
+                    .map(quote => `<div class="card m-2 p-3" style="width: 18rem;"><p class="card-text">"${quote}"</p></div>`)
+                    .join('');
+            } else {
+                document.getElementById('favoriteQuotes').innerHTML = '<p class="text-muted">Žádné oblíbené citáty</p>';
+            }
+        } else {
+            document.getElementById('profileMessage').textContent = data.error;
+        }
+    })
+    .catch(error => console.error('Chyba při načítání profilu:', error));
+}
 
 
 
@@ -128,6 +153,8 @@ document.getElementById('logout').addEventListener('click', function(e) {
 // reakce na kliknutí na elementy
 
 document.getElementById('navProfile').addEventListener('click', function() {
+    loadProfile();
+    console.log("Profil");
     ShowSection('profile');
     
 });
@@ -161,3 +188,6 @@ document.getElementById('saveQuote').addEventListener('click', function() {
         }
     });
 });
+
+
+
