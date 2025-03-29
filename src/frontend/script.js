@@ -9,6 +9,21 @@ function ShowSection(id) {
     activeSection.classList.add('d-flex'); // Přidáme flexbox zarovnání pro střed
 }
 
+
+function updateNav(prihlasen) {
+    // Přepínání navigace (Profil, Přihlášení, Registrace)
+    document.getElementById('navProfile').classList.toggle('d-none', !prihlasen);
+    document.getElementById('navLogin').classList.toggle('d-none', prihlasen);
+    document.getElementById('navRegister').classList.toggle('d-none', prihlasen);
+
+    document.getElementById('navProfile').classList.toggle('d-inline', prihlasen);
+    document.getElementById('navLogin').classList.toggle('d-inline', !prihlasen);
+    document.getElementById('navRegister').classList.toggle('d-inline', !prihlasen);
+}
+
+
+
+
 function toggleAuthLinks() {
     const elements = {
         profile: document.getElementById('navProfile'),
@@ -16,10 +31,18 @@ function toggleAuthLinks() {
         register: document.getElementById('navRegister')
     };
 
-    const showProfile = elements.profile.classList.toggle('d-none');
-    elements.login.classList.toggle('d-none', showProfile);
-    elements.register.classList.toggle('d-none', showProfile);
+    if (!elements.profile.classList.contains('d-none')) {
+        elements.profile.classList.add('d-none');
+        elements.login.classList.remove('d-none');
+        elements.register.classList.remove('d-none');
+    } else {
+        elements.profile.classList.remove('d-none');
+        elements.login.classList.add('d-none');
+        elements.register.classList.add('d-none');
+    }
 }
+
+
 
 
 document.getElementById('generate').addEventListener('click', function(e) {
@@ -53,8 +76,13 @@ document.getElementById('prihlaseni').addEventListener('submit', function(e) {
     })
     .then(response => response.json())
     .then(data => {
-            toggleAuthLinks();
+        if (data.message) {
+            document.getElementById('loginMessage').textContent = data.response;
+            updateNav(true);
             ShowSection('profile');
+        } else {
+            document.getElementById('loginMessage').textContent = data.error;
+        }
     });
 });
 
@@ -68,6 +96,25 @@ document.getElementById('registrace').addEventListener('submit', function(e) {
         credentials: 'same-origin',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: name, passwd: passwd, checkpasswd: checkpasswd })
+    })
+});
+
+
+document.getElementById('logout').addEventListener('click', function(e) {
+    e.preventDefault();
+    fetch('/api/logout', {
+        method: 'GET',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message) {
+            updateNav(false);
+            ShowSection('generator');
+        } else {
+            document.getElementById('logoutMessage').textContent = data.error;
+        } 
     })
 });
 

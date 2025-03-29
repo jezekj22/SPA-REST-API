@@ -11,6 +11,17 @@ app.use(express.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, '../frontend'))); // Přidá statické soubory
 
+
+const session = require('express-session');
+
+app.use(session({
+    secret: 'tajnyKlic', // Změň na bezpečný klíč
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false } // Pokud běžíš na HTTPS, nastav na true
+}));
+
+
 const quotesPath = path.join(__dirname, 'quotes.json');
 const quotes = JSON.parse(fs.readFileSync(quotesPath, 'utf8'));
 
@@ -116,8 +127,8 @@ app.post('/api/login', async (req, res) => {
         return res.status(400).json({ error: "Invalid username or password" });
     }
 
-    req.session.uzivatel = { id: uzivatel.id, jmeno: uzivatel.jmeno };
-    return res.json({ zprava: "Logged in" });
+    req.session.user = { id: user.id, jmeno: user.username };
+    return res.json({ message: "Logged in" });
 });
 
 app.post('/api/register', async (req, res) => {
@@ -152,8 +163,16 @@ app.post('/api/register', async (req, res) => {
 
 
 app.get('/api/logout', function(req, res) {
-    req.session.destroy();
-    return res.json({ zprava: "Logged out" });
+    try {
+        req.session.destroy();
+
+
+        return res.status(201).json({ message: "LoggedOut" });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "Logout unsuccesful" });
+    }
 });
 
 
