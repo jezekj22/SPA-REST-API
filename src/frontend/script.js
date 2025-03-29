@@ -143,3 +143,21 @@ document.getElementById('navLogin').addEventListener('click', function() {
 document.getElementById('navRegister').addEventListener('click', function() {
     ShowSection('register');
 });
+
+document.getElementById('saveQuote').addEventListener('click', function() {
+    const quote = document.getElementById('quoteText').innerText;
+    fetch('/api/save-quote', {
+        method: 'POST',
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: quote })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.message) {
+            document.getElementById('saveQuoteMessage').textContent = data.message;
+        } else {
+            document.getElementById('saveQuoteMessage').textContent = data.error;
+        }
+    });
+});

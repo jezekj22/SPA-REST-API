@@ -5,6 +5,9 @@ const path = require('path');
 const JSONdb = require('simple-json-db');
 const bcrypt = require('bcryptjs');
 
+const User = require('./user_model');
+const Quote = require('./quote_model');
+
 const app = express();
 app.use(express.json());
 
@@ -46,67 +49,7 @@ app.get('/random-quote', (req, res) => {
 });
 
 
-class User {
-    /**
-     * Constructor method
-     * @param { int } id 
-     * @param { string } username 
-     * @param { string } password 
-     * @param { string } displayName
-     * @param { int } generatedQuotes
-     * @param { int } favoritedQuotes
-     */  
-    constructor(id, username, password) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.db = new JSONdb(path.join(__dirname, '../data/users.json'));
-        
-        if (!this.db.has('next_id')) {
-            this.db.set('next_id', 1);
-        }
 
-        if (!this.db.has('users')) {
-            this.db.set('users', []);
-        }
-    }
-        
-    getNextId() {
-        return this.db.get('next_id');
-    }
-
-    FindUserbyName(username){
-        let users = this.db.get('users') || [];
-        let userData = users.find(user => user.username === username); 
-        console.log(username)
-        if(!userData){
-            return false
-        }
-        return  new User(userData.id, userData.username, userData.password); 
-    }
-
-    async create(user) {
-        const users = this.db.get('users') || [];
-        if(this.FindUserbyName(user.username)){
-            throw new Error("User already exists");
- 
-        }
-        const hashedPassword = await bcrypt.hash(user.password, 10);
-        users.push({
-            id: this.getNextId(),
-            username: user.username,
-            password: hashedPassword,
-            displayName: user.displayName,
-            generatedQuotes: user.generatedQuotes,
-            favoritedQuotes: user.favoritedQuotes
-        });
-    
-        this.db.set('users', users);
-        this.db.set('next_id', this.getNextId() + 1);
-        this.db.sync();
-        return user;
-    }
-}
 
 
 
@@ -126,8 +69,7 @@ app.post('/api/login', async (req, res) => {
     if (!isMatch) {
         return res.status(400).json({ error: "Invalid username or password" });
     }
-
-    req.session.user = { id: user.id, jmeno: user.username };
+    req.session.user =  user.username ;
     return res.json({ message: "Logged in" });
 });
 
@@ -172,6 +114,27 @@ app.get('/api/logout', function(req, res) {
     } catch (error) {
         console.error(error);
         return res.status(500).json({ error: "Logout unsuccesful" });
+    }
+});
+
+app.post('/api/save-quote', function(req, res) {
+    try {
+        const { text } = req.body;
+        if(req.session.user){
+            const quote = new Quote(req.session.user, text);
+            console.log("zkouší to uložit");
+            let message = quote.addFavoriteQuote();
+            quote.addFavoriteQuote();
+            if (!message.success) {
+                return res.status(400).json({ error: message.message });
+            }
+            return res.status(201).json({ message: "Quote Saved" });
+        }
+        
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ error: "Error occured during saving" });
     }
 });
 
