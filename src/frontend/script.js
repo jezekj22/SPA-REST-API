@@ -11,7 +11,6 @@ function ShowSection(id) {
 
 
 function updateNav(prihlasen) {
-    // Přepínání navigace (Profil, Přihlášení, Registrace)
     document.getElementById('navProfile').classList.toggle('d-none', !prihlasen);
     document.getElementById('navLogin').classList.toggle('d-none', prihlasen);
     document.getElementById('navRegister').classList.toggle('d-none', prihlasen);
@@ -78,6 +77,7 @@ document.getElementById('prihlaseni').addEventListener('submit', function(e) {
     .then(data => {
         if (data.message) {
             document.getElementById('loginMessage').textContent = data.response;
+            document.getElementById('saveQuote').style.display = 'block';
             updateNav(true);
             ShowSection('profile');
         } else {
@@ -112,6 +112,7 @@ document.getElementById('logout').addEventListener('click', function(e) {
         if (data.message) {
             updateNav(false);
             ShowSection('generator');
+            document.getElementById('saveQuote').style.display = 'none';
         } else {
             document.getElementById('logoutMessage').textContent = data.error;
         } 
