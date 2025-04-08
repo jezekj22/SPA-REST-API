@@ -2,9 +2,10 @@ const { Pool } = require('pg');
 const bcrypt = require('bcryptjs');
 
 // Připojení k PostgreSQL (Render connection string)
+const url="postgresql://users_e3yu_user:rd7HQ7EqRA1pEVRVowYupTkztUSman6N@dpg-cvqdfdhr0fns73enpqog-a.oregon-postgres.render.com/users_e3yu"
 
 const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
+  connectionString: process.env.url,
   ssl: {
     rejectUnauthorized: false
   }
