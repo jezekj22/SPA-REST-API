@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const JSONdb = require('simple-json-db');
-const db = new JSONdb('../data/users.json');
+const db = new JSONdb('../../data/users.json');
 const path = require('path');
 
 
@@ -18,7 +18,7 @@ class User {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.db = new JSONdb(path.join(__dirname, '../data/users.json'));
+        this.db = new JSONdb(path.join(__dirname, '../../data/users.json'));
         
         if (!this.db.has('next_id')) {
             this.db.set('next_id', 1);

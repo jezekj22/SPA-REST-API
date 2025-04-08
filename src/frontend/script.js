@@ -42,7 +42,10 @@ function toggleAuthLinks() {
 }
 
 
-
+document.getElementById('navProfile').addEventListener('click', function(){
+    loadProfile();
+    console.log("nacteni profilu");
+});
 
 document.getElementById('generate').addEventListener('click', function(e) {
     e.preventDefault();

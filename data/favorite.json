@@ -1,0 +1,20 @@
+{
+    "next_id": 4,
+    "quotes": [
+        {
+            "id": 1,
+            "username": "s",
+            "quote": "Nejlepší způsob, jak si něco zapamatovat - ať se zasměješ."
+        },
+        {
+            "id": 2,
+            "username": "s",
+            "quote": "Jídlo je moje vášeň -"
+        },
+        {
+            "id": 3,
+            "username": "s",
+            "quote": "Dnes budu produktivní - nebylo to dostatečně opravené."
+        }
+    ]
+}
